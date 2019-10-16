@@ -1,0 +1,36 @@
+spring:
+  profiles:
+    active: prod
+skywalker:
+  config:
+    app-name: my-app
+    node-id: my-id
+  jedis:
+    enabled: false
+    host: 127.0.0.1
+    port: 12345
+    password: 123456
+    max-total: 200
+    max-idle: 30
+    min-idle: 50
+    max-wait-millis: 500
+  zookeeper:
+    enabled: false
+    connection-string: 127.0.0.1:2181
+    namespace: ring/lock
+    session-timeout-ms: 60000
+    connection-timeout-ms: 15000
+  http:
+    enabled: false
+    socket-timeout-ms: 30000
+    connect-timeout-ms: 30000
+    connection-request-timeout-ms: 200
+    max-total: 2000
+    default-max-per-route: 1200
+  mybatis:
+    type-aliases-package: com.ring.api.model
+    mapper-locations: classpath*:mapper/*.xml
+    config-location: classpath:mybatis-config.xml
+    base-package: com.ring.common.mapper
+logging:
+  config: classpath:logback-spring.xml

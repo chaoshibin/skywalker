@@ -1,6 +1,5 @@
 package com.github.skywalker.common.util;
 
-import com.github.skywalker.common.enums.ResultEnum;
 import lombok.*;
 
 import java.io.Serializable;
@@ -25,7 +24,7 @@ public class Result<T> implements Serializable {
     /**
      * 出现异常时返回该静态变量
      */
-    public static final Result SYSTEM_ERROR = Result.of(ResultEnum.INTERNAL_SERVER_ERROR);
+    private static final Result SYSTEM_ERROR = Result.of(ResultEnum.INTERNAL_SERVER_ERROR);
 
     /**
      * 错误码
@@ -78,8 +77,27 @@ public class Result<T> implements Serializable {
         return Result.of(resultEnum.getCode(), resultEnum.getMsg(), null);
     }
 
+    public static Result getSystemError() {
+        return SYSTEM_ERROR;
+    }
+
     public boolean isOk() {
         return Objects.equals(ResultEnum.OK.getCode(), this.code);
+    }
+
+    /**
+     * 断言失败
+     *
+     * @return true:失败 false:成功 error异常
+     */
+    public boolean assertFail() {
+        if (isError()) {
+            throw new IllegalStateException("断言失败," + this);
+        }
+        if (isOk()) {
+            return false;
+        }
+        return isFail();
     }
 
     public boolean isFail() {
@@ -88,5 +106,21 @@ public class Result<T> implements Serializable {
 
     public boolean isError() {
         return Objects.equals(ResultEnum.INTERNAL_SERVER_ERROR.getCode(), this.code);
+    }
+
+    @Getter
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @ToString
+    private enum ResultEnum {
+        /**
+         * 错误码
+         */
+        OK("000000", "成功"),
+        FAIL("100001", "失败"),
+        INTERNAL_SERVER_ERROR("999999", "服务内部错误"),
+        ;
+
+        private String code;
+        private String msg;
     }
 }

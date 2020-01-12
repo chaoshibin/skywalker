@@ -1,8 +1,10 @@
-package com.github.skywalker.common.util;
+package com.github.skywalker.common.utils;
 
+import com.github.skywalker.common.constant.StrConst;
 import com.github.skywalker.common.enums.ResultEnum;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
+import org.apache.commons.lang3.ArrayUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 
@@ -10,12 +12,14 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * @author Chao Shibin 2019/4/16
  */
 @UtilityClass
-public class AspectUtil {
+public class AspectUtils {
 
     /**
      * 获取注解方法
@@ -112,5 +116,22 @@ public class AspectUtil {
      */
     public static String getInterfaceName(JoinPoint jp) {
         return jp.getSignature().getDeclaringTypeName();
+    }
+
+    /**
+     * 连接业务键值
+     */
+    public static String contactBusinessValue(JoinPoint joinPoint, String[] values) {
+        if (ArrayUtils.isEmpty(values)) {
+            throw new IllegalArgumentException("key值表达式错误");
+        }
+        String result;
+        if (1 == ArrayUtils.getLength(values)) {
+            result = SpelUtils.parseValue(values[0], AspectUtils.getMethodSignature(joinPoint).getParameterNames(), joinPoint.getArgs());
+        } else {
+            result = Arrays.stream(values).map(key -> SpelUtils.parseValue(key, AspectUtils.getMethodSignature(joinPoint).getParameterNames(), joinPoint.getArgs()))
+                    .collect(Collectors.joining(StrConst.UNDERLINE));
+        }
+        return result;
     }
 }

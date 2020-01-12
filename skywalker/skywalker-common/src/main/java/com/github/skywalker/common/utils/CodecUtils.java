@@ -1,4 +1,4 @@
-package com.github.skywalker.common.util;
+package com.github.skywalker.common.utils;
 
 import lombok.SneakyThrows;
 import org.apache.commons.codec.binary.Base64;
@@ -15,11 +15,11 @@ import java.util.UUID;
  *
  * @author Chao Shibin
  */
-public final class CodecUtil {
+public final class CodecUtils {
 
     public static final String UTF_8 = "UTF-8";
 
-    private CodecUtil() {
+    private CodecUtils() {
     }
 
     /**

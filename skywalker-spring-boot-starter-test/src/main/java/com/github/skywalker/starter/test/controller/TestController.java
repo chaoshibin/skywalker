@@ -1,8 +1,8 @@
 package com.github.skywalker.starter.test.controller;
 
 import com.github.skywalker.annotation.EasyLog;
-import com.github.skywalker.annotation.EasyValidation;
-import com.github.skywalker.common.util.Result;
+import com.github.skywalker.validation.EasyValidation;
+import com.github.skywalker.common.utils.Result;
 import com.github.skywalker.starter.test.model.Student;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

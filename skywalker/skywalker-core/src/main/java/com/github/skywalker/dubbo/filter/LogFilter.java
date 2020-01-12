@@ -4,7 +4,7 @@ import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.extension.Activate;
 import com.alibaba.dubbo.rpc.*;
 import com.github.skywalker.annotation.EasyLog;
-import com.github.skywalker.common.util.AspectUtil;
+import com.github.skywalker.common.utils.AspectUtils;
 import com.google.common.base.Stopwatch;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -74,7 +74,7 @@ public class LogFilter implements Filter {
     private RpcResult buildErrorRpcResult(EasyLog easyLogAnnotation, Method method) {
         Class<?> returnType = method.getReturnType();
         //构建错误对象
-        Object errorResult = AspectUtil.buildErrorResult(returnType, easyLogAnnotation.codeField(), easyLogAnnotation.msgField());
+        Object errorResult = AspectUtils.buildErrorResult(returnType, easyLogAnnotation.codeField(), easyLogAnnotation.msgField());
         return new RpcResult(errorResult);
     }
 }

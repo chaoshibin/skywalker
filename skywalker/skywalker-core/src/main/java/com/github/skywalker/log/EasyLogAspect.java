@@ -1,7 +1,7 @@
-package com.github.skywalker.log.aspect;
+package com.github.skywalker.log;
 
 import com.github.skywalker.annotation.EasyLog;
-import com.github.skywalker.common.util.AspectUtil;
+import com.github.skywalker.common.utils.AspectUtils;
 import com.google.common.base.Stopwatch;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -28,11 +28,11 @@ public class EasyLogAspect {
     @Around("pointCut()")
     public Object methodProcess(ProceedingJoinPoint joinPoint) {
         //注解方法
-        Method sourceMethod = AspectUtil.getMethod(joinPoint);
+        Method sourceMethod = AspectUtils.getMethod(joinPoint);
         EasyLog easyLogAnnotation = sourceMethod.getAnnotation(EasyLog.class);
         //获取日志标识
         String title = easyLogAnnotation.title();
-        String methodName = AspectUtil.getMethodName(joinPoint);
+        String methodName = AspectUtils.getMethodName(joinPoint);
         Stopwatch stopWatch = Stopwatch.createStarted();
         try {
             log.info("[{}] method={}，请求报文={}", title, methodName, joinPoint.getArgs());
@@ -42,12 +42,12 @@ public class EasyLogAspect {
         } catch (Throwable e) {
             log.error("[{}异常] method={}，请求报文={}，耗时{}", title, methodName, joinPoint.getArgs(), stopWatch, e);
             //返回类型
-            Class<?> returnType = AspectUtil.getReturnType(joinPoint);
+            Class<?> returnType = AspectUtils.getReturnType(joinPoint);
             // 返回码属性域
             String codeField = easyLogAnnotation.codeField();
             // 返回信息属性域
             String msgField = easyLogAnnotation.msgField();
-            return AspectUtil.buildErrorResult(returnType, codeField, msgField);
+            return AspectUtils.buildErrorResult(returnType, codeField, msgField);
         }
     }
 }

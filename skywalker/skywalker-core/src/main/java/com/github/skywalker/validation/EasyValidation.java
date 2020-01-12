@@ -1,4 +1,4 @@
-package com.github.skywalker.annotation;
+package com.github.skywalker.validation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

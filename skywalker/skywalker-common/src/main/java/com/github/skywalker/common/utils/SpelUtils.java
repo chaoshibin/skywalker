@@ -1,4 +1,4 @@
-package com.github.skywalker.common.util;
+package com.github.skywalker.common.utils;
 
 import com.google.common.collect.Maps;
 import lombok.experimental.UtilityClass;
@@ -15,7 +15,7 @@ import java.util.Map;
  * @author Chao Shibin 2019/5/14 12:57
  */
 @UtilityClass
-public final class SpelUtil {
+public final class SpelUtils {
 
     public static String parseValue(String expression, String[] parameterNames, Object[] args) {
         if (ArrayUtils.isEmpty(args)) {

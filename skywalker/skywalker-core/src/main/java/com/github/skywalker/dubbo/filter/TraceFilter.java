@@ -3,7 +3,7 @@ package com.github.skywalker.dubbo.filter;
 import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.extension.Activate;
 import com.alibaba.dubbo.rpc.*;
-import com.github.skywalker.common.util.CodecUtil;
+import com.github.skywalker.common.utils.CodecUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.MDC;
 
@@ -27,7 +27,7 @@ public class TraceFilter implements Filter {
             String requestId = RpcContext.getContext().getAttachment(REQUEST_ID);
             String serverIp = RpcContext.getContext().getAttachment(SERVER_IP);
             if (StringUtils.isBlank(requestId)) {
-                String newRequestId = CodecUtil.createUuid();
+                String newRequestId = CodecUtils.createUuid();
                 MDC.put(REQUEST_ID, newRequestId);
             }
             if (StringUtils.isBlank(serverIp)) {
@@ -41,7 +41,7 @@ public class TraceFilter implements Filter {
             if (StringUtils.isNotBlank(requestId)) {
                 RpcContext.getContext().setAttachment(REQUEST_ID, requestId);
             } else {
-                String newRequestId = CodecUtil.createUuid();
+                String newRequestId = CodecUtils.createUuid();
                 MDC.put(REQUEST_ID, newRequestId);
                 RpcContext.getContext().setAttachment(REQUEST_ID, newRequestId);
             }

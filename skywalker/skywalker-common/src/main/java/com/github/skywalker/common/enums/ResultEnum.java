@@ -17,8 +17,9 @@ public enum ResultEnum {
      */
     OK("000000", "成功"),
     FAIL("100001", "失败"),
-    INTERNAL_SERVER_ERROR("999999", "服务内部错误"),
-    ;
+    ILLEGAL_PARAM("999998", "参数验证不通过"),
+    DISTRIBUTE_LOCK_FAIL("999999", "争夺分布式锁失败"),
+    INTERNAL_SERVER_ERROR("999999", "服务内部错误");;
 
     private String code;
     private String msg;

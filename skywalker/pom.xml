@@ -21,7 +21,7 @@
         <guava.version>26.0-jre</guava.version>
         <commons-lang3.version>3.8</commons-lang3.version>
         <commons-collections4.version>4.2</commons-collections4.version>
-        <commons.io.version>2.6</commons.io.version>
+        <commons.io.version>2.7</commons.io.version>
         <commons-codec.version>1.11</commons-codec.version>
         <lombok.version>1.18.8</lombok.version>
         <slf4j-api.version>1.7.25</slf4j-api.version>
